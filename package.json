@@ -1,0 +1,14 @@
+{
+  "name": "mernback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "backpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backpack-core": "^0.8.4"
+  }
+}
