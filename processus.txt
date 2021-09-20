@@ -1,3 +1,5 @@
+// ============================== Première phase: Node JS =======================================================
+
 => On se rend dans le répertoire du projet et on l'initialise avec la comande:
 npm init
 
@@ -13,7 +15,8 @@ npm install --save backpack-core
 	Ensuite on change le script dans package.json comme suit:	"start": "backpack"
 		Enfin on relance la commande "npm start" pour verifier
 
-=> Pour que backpack ne se souci pas des problemes de version on install babel-preset-stage-3 avec la commande:
+=> Pour que backpack ne se souci pas des problemes de version on install babel-preset-stage-3 (peut causer des probleme,
+ cependant au cas échéant supprimer le) avec la commande:
 npm install --save babel-preset-stage-3
 	Ensuite on crée le fichier ".babelrc" dans la racine du projet et on y ajoute les lignes suivante:
 	{
@@ -22,3 +25,60 @@ npm install --save babel-preset-stage-3
 			"stage-3"
 		]
 	}
+
+=> Tout les variables d'environnement se trouvent dans process.env. Vous pouvez tous les afficher avec la commande:
+console.log(process.env)
+la variable NODE_ENV est celle qui gere les mode "development" et "production" mais par défaut backpack crée cette variable
+automatiquement et lui donne la valeur "development". Mais si vous voulez le déclarez cas même alors
+vous pouvez modifier le script de package.json comme ceci:
+    "start": "backpack NODE_ENV=development"
+	Et pour faire le build de la production puis la lancer alors ajoutez juste sous cette ligne au dessus:
+	"build": "backpack build"
+	ensuite lancer la commande "npm run build"
+	et enfin lancer la commande : "node build\main.js"
+
+	Vous pouvez même déclarer d'autres variables d'environnement par exemple: process.env.NewVarEnv = "valueNewVarEnv"
+	Pour spécifier que vous travaillez en mode dev, vous pouvez modifier le script de package.json comme ceci:
+    "start": "NODE_ENV=development backpack" uniquement si vous ne travaillez pas avec backpack parcequ'il le fait automatiquement
+
+=> Pour executer un fichier .js dans le projet on tape la commande:
+npm install --save lodash
+
+// ============================== Deuxième phase: Express =======================================================
+
+=> Pour installer le librairie express sur un projet Node on tapez la commande:
+npm install express --save
+	Ensuite configurons express pour avoir un serveur de base qui fonctionne trés bien:
+	- Définissons un port pour le serveur d'express sur le script dans package.json comme ceci: 
+		"start": "backpack SERVER_PORT=6789"
+
+=> Pour pouvoir mieux gérer les requêtes (le body des reqêtes) du crud installons le librairie suivant:
+npm install --save body-parser
+
+// ============================== Troisième phase: MongoDB =======================================================
+
+=> Pour installer MongoDB il faut télécharger "Community Server" qui nous permet de créer notre base en local et "Compass"
+pour avoir une interface de gestion de nos bases MongoDB. Et ensuite on les installe.
+	mongo --version pour voir la version de mongo installée sur la machine
+	Ensuite il faut ajouter "C:\Program Files\MongoDB\Server\5.0\bin" dans le "path" des variables d'environnement
+	afin de pouvoir utiliser mongo en ligne de commande
+		Aprés il faut créer le répertoire "c:\data\db" afin de pouvoir lancer le serveur avec la commande "mongod"
+		et le client avec la commande "mongo"
+	Au niveau du serveur client vous pouvez utiliser les commandes suivantes:
+	- "show dbs" pour afficher toutes les bases e données créées
+	- "use nomBase" pour créer la base "nomBase" si elle n'existe pas ou s'y déplacer si elle existe déjà
+	- "db.createCollection('etudiant')" pour créer la collection (table) 'etudiant' dans la base 'nomBase'
+	- "db.etudiant.insert({"nom": "Ibrahima", "prenom": dramé})" pour insérer des données 
+	- "db.etudiant.insertOne({"nom": "Ibrahima", "prenom": dramé})" pour insérer des données 
+	  dans la collection (table) étudiant de la base "nomBase" (crée la table si elle n'existe pas)
+	- "show collections" pour afficher la liste des collections de la base "nomBase"
+	- "db.etudiant.find()" pour afficher les données de la collection "etudiant"
+	- "db.etudiant.find({_id: ObjectId("iqgdfigzifgiqd34453")})" pour rechercher un étudiant par id
+	- "db.etudiant.find({nom: 'dramé'})" pour rechercher un étudiant par id
+
+=> Pour connecter notre serveur Backend et notre base MongoDB, il nous faut installer le librairie "mongoose"
+   la commande: "npm install --save mongoose"
+
+=> Certes MongoDB n'utilise pas de base de données relationnelle comme mysql néanmoin mongoose nous permet de créer
+un schéma relationnel de données.
+	  
